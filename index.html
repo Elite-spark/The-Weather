@@ -32,11 +32,11 @@
             font-weight: bold;
             font-size: 0.8em;
             font-family: 'Roboto', sans-serif;
-            color: rgba(255, 215, 0, 0.3);
+            color: var(--gold-glow);
             margin: 0px;
             margin-right: 30px;
             bottom: 10px;
-            text-shadow: 1px 1px 5px rgba(255, 215, 0, 0.4);
+            text-shadow: 1px 1px 5px var(--glow-opacity);
             animation: fadeInUp 0.8s ease-in-out;
         }
 
@@ -66,7 +66,7 @@
             border-radius: 20px;
             border: 0px solid var(--gold-glow);
             border-left: 1px solid var(--gold-glow);
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+            box-shadow: 0 0 20px var(--glow-opacity);
             position: relative;
             overflow: hidden;
             margin-top: 15px;
@@ -102,13 +102,13 @@
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: #00ff00;
+            background: var(--gold-glow);
             box-shadow: 0 0 10px #00ff00;
             animation: indicatorPulse 1.5s infinite;
         }
 
         .indicator-dot:nth-child(2) {
-            background: #ffff00;
+            background: var(--gold-glow);
             animation-delay: 0.3s;
         }
 
@@ -142,4 +142,24 @@
   </div>
   <div class="logo">Elite Spark  --2026-- @</div>
 </body>
+<script>
+
+    // وظيفة تحديث اللون من تطبيق MIT App Inventor
+    function updateThemeColor() {
+        try {
+            // جلب اللون من WebViewString (سيرسل التطبيق مثلاً #40e0d0)
+            let newColor = window.AppInventor.getWebViewString();
+            
+            if (newColor && newColor.length > 3) {
+                document.documentElement.style.setProperty('--gold-glow', newColor);
+                // تحديث الشفافية للتوهج
+                let glowColor = newColor + "4D"; // إضافة شفافية 30%
+                document.documentElement.style.setProperty('--glow-opacity', glowColor);
+            }
+        } catch (e) {
+            // في حال المتصفح العادي لا يفعل شيئاً
+        }
+    }
+    // تشغيل الدالة كل 500 ملي ثانية (نصف ثانية) لضمان الاستجابة السريعة
+    setInterval(updateThemeColor, 500);
 </html>
